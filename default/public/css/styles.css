@@ -1,0 +1,48 @@
+/*.panel,.form-control{
+	position: relative;
+	border-radius: 0px;
+}
+.form-group{
+	margin-bottom: 0px;
+}
+.panel-title{
+	font-weight: bold;
+}
+.panel-default >.panel-heading{
+	background-color:#ffc000;
+
+}*/
+.peque{
+	font-size: 12px;
+}
+/*.panel-body{
+	padding-bottom:1px;
+	padding-top:2px;
+}
+.label_table{
+	width: 15%;
+}
+
+.label_table1{
+	width: 12%;
+}
+.label_table2{
+	width: 250px;
+}
+.label_table2{
+	width: 400px;
+}
+.input_table1{
+	width: 100px;
+}
+
+.foto_table{
+	width: 180px;
+
+}
+.thumbnail,#file{
+	position: absolute;
+	right: 35px;
+	top: 50px;
+	z-index: 1;
+}*/

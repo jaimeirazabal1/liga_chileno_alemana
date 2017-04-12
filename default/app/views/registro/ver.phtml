@@ -1,0 +1,539 @@
+	<?php echo Tag::css('styles') ?>
+	
+	<script type="text/javascript">
+		function onFileSelected(event) {
+		  var selectedFile = event.target.files[0];
+		  var reader = new FileReader();
+
+		  var imgtag = document.getElementById("imagen");
+		  imgtag.title = selectedFile.name;
+
+		  reader.onload = function(event) {
+		    imgtag.src = event.target.result;
+		  };
+
+		  reader.readAsDataURL(selectedFile);
+		}
+		$(document).ready(function() {
+			$('#registro_fechaDeNacimiento').datetimepicker({
+				format : 'YYYY-MM-DD'
+			});
+			$("#registro_tengoAnfitriones").change(function(){
+				
+					$("#registro_nombreAnfitrion").val("");
+				if ($(this).val() == 0) {
+					$("#registro_nombreAnfitrion").prop('readonly',true);
+				}else{
+					$("#registro_nombreAnfitrion").prop('readonly',false);
+				}
+			})
+		});
+	</script>
+	<style type="text/css">
+		.panel-default >.panel-heading{
+			background-color:#ffc000;
+
+		}
+	</style>
+<div class="container">
+	<?php View::content() ?>
+		<div class="header">
+			<div class="col-md-9 col-sm-9 col-xs-9 text-left">
+				<h3>EINSCHREIBEFORMULAR  2017- 2018</h3>
+				<h4><i>Formulario de inscripción  2017- 2018</i></h4>
+			</div>
+			<div class="col-md-3 col-sm-3 col-xs-3 text-center">
+				<?php echo Html::img("logo.jpg","logo",'style="margin-top: 20px;width:100%"') ?>
+			</div>
+		</div>
+		<div class="text-center">
+			<?php echo Html::link("registro/","Volver a la lista") ?>
+		</div>
+	</div>
+	<br>
+	<div class="container">
+		<?php echo Form::openMultipart("registro/editar") ?>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">I. PERSÖNLICHE ANGABEN / <i>datos personales</i></h3>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					
+					<div class="col-md-8">
+						<div class="form-group">
+							<div class="row">
+
+								<div class="col-md-3">
+									<b>Meine Schule:</b> <br> <span class="peque">Mi colegio</span>
+								</div>
+								<div class="col-md-9">
+									<?php echo Form::hidden("registro.id") ?>
+									<?php echo Form::text("registro.colegio","class='form-control' required") ?>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								
+								<div class="col-md-3">
+
+								<b>Vollständiger Name:</b> <br> <span class="peque">Nombre completo</span>
+								</div>
+								<div class="col-md-9">
+
+								<?php echo Form::text("registro.nombre","class='form-control' required") ?>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								
+								<div class="col-md-3">
+
+								<b>Klasse (heute):</b> <br> <span class="peque">Curso (hoy)</span>
+								</div>
+								<div class="col-md-9">
+
+								<?php echo Form::text("registro.curso","class='form-control' required") ?>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								
+								<div class="col-md-3">
+
+								<b>Geschlecht:</b> <br> <span class="peque">Genero</span>
+								</div>
+								<div class="col-md-9">
+
+								<?php echo Form::select("registro.genero",array("männlich"=>"männlich","weiblich"=>"weiblich"),"class='form-control' required") ?>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+					<img src="<?php echo PUBLIC_PATH ?>files/upload/registro_fotos/<?php echo $registro->foto ?>" width='150' id='imagen' class='thumbnail' alt="">
+
+						<?php echo Form::file("foto",'onchange="onFileSelected(event)"') ?>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-4">
+									<b>Geburtsdatum: </b> <br> <span class="peque">Fecha de nacimiento</span>
+
+								</div>
+								<div class="col-md-8">
+									<?php echo Form::text("registro.fechaDeNacimiento","class='form-control' id='datetimepicker1' required") ?>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<div class="col-md-6">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-6">
+									<b>Für Deutsche: Reisepass </b> <br> <span class="peque">Para chilenos: RUT</span>
+									
+
+								</div>
+								<div class="col-md-6">
+									<?php echo Form::text("registro.numIdentidad","class='form-control' required") ?>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-4">
+									<b>Nationalität(en):   </b> <br> <span class="peque">Nacionalidad(es)</span>
+
+								</div>
+								<div class="col-md-8">
+									<?php echo Form::text("registro.nacionalidad","class='form-control' required") ?>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<div class="col-md-6">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-4">
+									<b>Religion: </b> <br> <span class="peque">Religión</span>
+								</div>
+								<div class="col-md-8">
+									<?php echo Form::text("registro.religion","class='form-control' required") ?>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-4">
+									<b>Mail: </b> <br> <span class="peque">Mail: </span>
+
+								</div>
+								<div class="col-md-8">
+									<?php echo Form::text("registro.mail","class='form-control' required") ?>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<div class="col-md-6">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-4">
+									<b>Handynummer: </b> <br> <span class="peque">Celular</span>
+								</div>
+								<div class="col-md-4">
+									<?php echo Form::select("registro.celular_code",array("+56"=>"+56","+49"=>"+49","+43"=>"+43"),"class='form-control' required") ?>
+								</div>
+								<div class="col-md-4">
+									<?php echo Form::text("registro.celular","class='form-control' required") ?>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-4">
+									<b>Ich rauche: </b> <br> <span class="peque">Yo fumo</span>
+
+								</div>
+								<div class="col-md-8">
+									<?php echo Form::select("registro.fuma",array("0"=>"nein","1"=>"ja"),"class='form-control' required") ?>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<div class="col-md-6">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-4">
+									<b>T-Shirt-Größe:  </b> <br> <span class="peque">Talla polera</span>
+								</div>
+								<div class="col-md-8">
+									<?php echo Form::select("registro.tallapolera",array("S"=>"S","M"=>"M","L"=>"L","XL"=>"XL"),"class='form-control' required") ?>
+								</div>
+								
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-4">
+									<b>Adresse: </b> <br> <span class="peque">Dirección</span>
+
+								</div>
+								<div class="col-md-8">
+									<?php echo Form::text("registro.direccion","class='form-control' required") ?>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<div class="col-md-6">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-4">
+									<b>Festnetznummer: </b> <br> <span class="peque">Teléfono fijo</span>
+								</div>
+								<div class="col-md-8">
+									<?php echo Form::text("registro.telefonofijo","class='form-control' required") ?>
+								</div>
+								
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-4">
+									<b>Ich wohne mit: </b> <br> <span class="peque">Yo vivo con</span>
+
+								</div>
+								<div class="col-md-8">
+									<?php echo Form::select("registro.vivocon",array("Eltern"=>"Eltern","Mutter"=>"Mutter","Vater"=>"Vater","Anderes"=>"Anderes"),"class='form-control' required") ?>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<div class="col-md-6">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-4">
+									<b>Fremdsprachenniveau: </b> <br> <span class="peque">Nivel del idioma extranjero </span>
+								</div>
+								<div class="col-md-4">
+									<?php echo Form::select("registro.nivelidioma",array("Deutsch"=>"Deutsch","Spanisch"=>"Spanisch"),"class='form-control' required") ?>
+								</div>
+								<div class="col-md-4">
+									<?php echo Form::text("registro.nivelidioma2","class='form-control'") ?>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-4">
+									<b>Hobbys</b> <br> <span class="peque">Hobbies</span>
+
+								</div>
+								<div class="col-md-8">
+									<?php echo Form::textarea("registro.hobbys","class='form-control' required") ?>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<div class="col-md-6">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-4">
+									<b>Sonstige Bemerkungen* </b> <br> <span class="peque">Otros antecedentes importantes </span>
+								</div>
+								<div class="col-md-8"> 
+									<?php echo Form::textarea("registro.otrosAntecedentes","class='form-control' required") ?>
+									<p class="text-muted"><h6>Angaben zu chronischen und psychischen Krankheiten, Essgewohnheiten etc . (en cuánto a enfermedades crónicas, trastorno psicológico, hábitos alimenticios etc.)</h6></p>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				
+		</div>
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">II.  ANGABEN ÜBER ELTERN / <i>datos de padres</i></h3>
+		  </div>
+		  <div class="panel-body">
+				<div class="row">
+					<div class="col-md-9">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-4">
+									<b>Nach- und Vorname des Vaters: </b> <br> <span class="peque">Apellidos y nombre padre    </span>
+
+								</div>
+								<div class="col-md-8">
+									<?php echo Form::text("registro.nombrePadre","class='form-control' required") ?>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<div class="col-md-3">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-4">
+									<b>Alter:  </b> <br> <span class="peque">Edad</span>
+								</div>
+								<div class="col-md-8">
+									<?php echo Form::text("registro.edadPadre","class='form-control' required") ?>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-8">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-2">
+									<b>Mail:  </b> <br> <span class="peque">Mail</span>
+
+								</div>
+								<div class="col-md-10">
+									<?php echo Form::text("registro.mailPadre","class='form-control' required") ?>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<div class="col-md-4">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-2">
+									<b>Handy: </b> <br> <span class="peque">Celular</span>
+								</div>
+								<div class="col-md-4">
+									<?php echo Form::select("registro.celularPadre_code",array("+56"=>"+56","+49"=>"+49","+43"=>"+43"),"class='form-control' required") ?>
+								</div>
+								<div class="col-md-6">
+									<?php echo Form::text("registro.celularPadre","class='form-control' required") ?>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<!-- ///////////////////////-->
+				<div class="row">
+					<div class="col-md-9">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-4">
+									<b>Nach- und Vorname der Mutter: </b> <br> <span class="peque">Apellidos y nombre madre    </span>
+
+								</div>
+								<div class="col-md-8">
+									<?php echo Form::text("registro.nombreMadre","class='form-control' required") ?>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<div class="col-md-3">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-4">
+									<b>Alter:  </b> <br> <span class="peque">Edad</span>
+								</div>
+								<div class="col-md-8">
+									<?php echo Form::text("registro.edadMadre","class='form-control' required") ?>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-8">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-2">
+									<b>Mail:  </b> <br> <span class="peque">Mail</span>
+
+								</div>
+								<div class="col-md-10">
+									<?php echo Form::text("registro.mailMadre","class='form-control' required") ?>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<div class="col-md-4">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-2">
+									<b>Handy: </b> <br> <span class="peque">Celular</span>
+								</div>
+								<div class="col-md-4">
+									<?php echo Form::select("registro.celularMadre_code",array("+56"=>"+56","+49"=>"+49","+43"=>"+43"),"class='form-control' required") ?>
+								</div>
+								<div class="col-md-6">
+									<?php echo Form::text("registro.celularMadre","class='form-control' required") ?>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				
+		  </div>
+		</div>
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">III. SONSTIGES / <i>otros</i></h3>
+		  </div>
+		  <div class="panel-body">
+		  		<div class="row">
+		  			<div class="col-md-6">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-6">
+									<b>Ich habe Verwandte im Gastland: </b> <br> <span class="peque">Tengo parientes en el país anfitrión</span>
+								</div>
+								<div class="col-md-6">
+									<!-- <?php //var_dump($registro->tengoParientes) ?> -->
+									<?php echo Form::select("registro.tengoParientes",array("1"=>"ja","0"=>"nein"),"class='form-control'",$registro->tengoParientes) ?>
+								</div>
+							</div>
+						</div>
+		  			</div>
+		  			<div class="col-md-6">	
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-6">
+									<b>Ich habe schon eine Gastfamilie: </b> <br> <span class="peque">Ya tengo familia anfitriona</span>
+								</div>
+								<div class="col-md-6">
+									<!-- <?php //var_dump($registro->tengoAnfitriones) ?> -->
+									<?php echo Form::select("registro.tengoAnfitriones",array("1"=>"ja","0"=>"nein"),"class='form-control'",$registro->tengoAnfitriones) ?>
+								</div>
+							</div>
+						</div>
+		  			</div>
+		  		</div>
+		  		<div class="row">
+		  			<div class="col-md-12">
+		  				<div class="form-group">
+		  					<div class="row">
+		  						<div class="col-md-6">
+			  						<b>Ich habe schon eine Gastfamilie (Name, Adresse, Mail, Handy): </b> <br> <span class="peque">Ya tengo familia anfitriona (Nombre, dirección, mail, celular)</span>
+			  					</div>
+			  					<div class="col-md-6">
+								<?php echo Form::text("registro.nombreAnfitrion","class='form-control'") ?>
+								</div>
+
+		  					</div>
+		  				</div>
+		  			</div>
+		  		</div>
+				
+		  </div>
+		</div>
+		<input type="submit" class="btn btn-success btn-block btn-lg">
+		<br><br>
+	</div>
+	</form>

@@ -1,0 +1,32 @@
+<div class="container">
+	
+<div class="text-center container">
+	<div class="text-center" style="margin-bottom:100px">
+        <h2>Panel</h2>
+        <?php echo Html::img("logo.jpg","Logo","width='300' style='margin-top:20px;margin-bottom:20px'") ?>
+        <?php View::content(); ?>
+    </div>
+	<div class="row container">
+		<div class="col-md-6">
+			<?php echo Html::link("registro/nuevo","Nuevo Registro","class='btn btn-lg btn-default'") ?>
+		</div>
+		<div class="col-md-6">
+			<?php echo Html::link("registro/","Lista de Registros","class='btn btn-lg btn-default'") ?>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<?php echo Form::open() ?>
+			<div class="form-group">
+				<label>Cambio de Contraseña</label>
+				<?php echo Form::password("password","class='form-control' placeholder='Ingresa la contraseña'") ?>
+				<?php echo Form::password("password2","class='form-control' placeholder='Repite la Contraseña'") ?>
+			</div>
+			<input type="submit" value="Cambiar" class="btn btn-success btn-xs">
+			<?php echo Form::close() ?>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+</div>
+</div>

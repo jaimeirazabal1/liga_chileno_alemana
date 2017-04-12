@@ -1,0 +1,68 @@
+
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.table').DataTable({
+    	language:{
+		    "sProcessing":     "Procesando...",
+		    "sLengthMenu":     "Mostrar _MENU_ registros",
+		    "sZeroRecords":    "No se encontraron resultados",
+		    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+		    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+		    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+		    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+		    "sInfoPostFix":    "",
+		    "sSearch":         "Buscar:",
+		    "sUrl":            "",
+		    "sInfoThousands":  ",",
+		    "sLoadingRecords": "Cargando...",
+		    "oPaginate": {
+		        "sFirst":    "Primero",
+		        "sLast":     "Último",
+		        "sNext":     "Siguiente",
+		        "sPrevious": "Anterior"
+		    },
+		    "oAria": {
+		        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+		        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+		    }
+		}
+    });
+} );
+</script>
+<div class="container">
+		<div class="header" style="margin-bottom: 20px">
+			<div class="col-md-9">
+				<h3>EINSCHREIBEFORMULAR SAT 2017- 2018</h3>
+				<h4><i>Formulario de inscripción SAT 2017- 2018</i></h4>
+			</div>
+			<div class=" text-center">
+				<?php echo Html::img("logo.jpg","logo",'style="margin-top: 20px;width:150px"') ?>
+			</div>
+		</div>
+		<?php View::content() ?>
+		<div class="text-center">
+			<h3>Logs de Correos</h3>
+			<?php echo Html::link('index/antes_de_enviar/4','Atras') ?> |
+			<?php echo Html::link("registro/","Ir a la lista") ?>
+		</div>
+		<table class="table table-bordered">
+			<thead>
+				<th>#</th>
+				<th>Destinatario</th>
+				<th>Fecha Envio</th>
+			</thead>
+			<?php $i=1 ?>
+			<?php foreach ($logs as $key => $value): ?>
+				<tr>
+					<td><?php echo $i ?></td>
+					<td><?php echo $value->destinatarios ?></td>
+					<td><?php echo $value->created ?></td>
+					<?php $i++ ?>
+				</tr>
+			<?php endforeach ?>
+		</table>
+</div>

@@ -1,0 +1,30 @@
+<div class="container">
+	<div class="header" style="margin-bottom: 20px">
+		<div class="col-md-9">
+			<h3>EINSCHREIBEFORMULAR SAT 2017- 2018</h3>
+			<h4><i>Formulario de inscripción SAT 2017- 2018</i></h4>
+		</div>
+		<div class=" text-center">
+			<?php echo Html::img("logo.jpg","logo",'style="margin-top: 20px;width:150px"') ?>
+		</div>
+	</div>
+	<?php View::content() ?>
+	<div class="text-center">
+		<h2>Enviar Correo a</h2>
+	</div>
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<?php echo Form::open() ?>
+			<div class="form-group">
+				<label>Destinatarios (separar con comas (,))</label>
+				<?php echo Form::text("destinatarios","class='form-control'") ?>
+			</div>
+			<?php echo Form::submit("Enviar","class='btn btn-success btn-xs'") ?>
+			<?php echo Html::link("registro/","Volver a la lista","class='btn btn-default btn-xs'") ?>
+			<?php echo Html::link("sendmail/index/{$registro->id}","Correos Enviados","class='btn btn-default btn-xs'") ?>
+			<?php echo Form::close() ?>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+</div>

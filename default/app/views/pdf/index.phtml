@@ -1,0 +1,118 @@
+<?php
+$pdf=new PDF_MC_Table();
+$pdf->AddPage();
+$pdf->SetTitle($registro->id.'/'.$registro->nombre);
+$pdf->SetFont('Arial','',14);
+/*encabezado*/
+$pdf->Cell(10,10,utf8_decode('EINSCHREIBEFORMULAR SAT 2017- 2018'),0,1);
+$pdf->SetXY(10,20);
+$pdf->SetFont('Arial','',12);
+$pdf->Cell(10,10,utf8_decode('Formulario de inscripción SAT 2017- 2018'),0,1);
+$pdf->SetFont('Arial','',10);
+$pdf->Image(APP_PATH."../public/img/logo.jpg",135,10,-500);
+
+
+/*termino encabezado*/
+
+/*cuerpo de tabla*/
+$pdf->SetWidths(array(35,100));
+$pdf->Image(APP_PATH."../public/files/upload/registro_fotos/$registro->foto",150,40,40,40);
+$pdf->SetFont('Arial','B',12);
+
+$pdf->Cell(10,10,utf8_decode("I. PERSÖNLICHE ANGABEN / datos personales"));
+$pdf->SetFont('Arial','',8);
+
+$pdf->SetXY(10,40);
+$pdf->Row(array('Meine Schule: <br>Mi colegio',$registro->colegio),1);
+$pdf->Row(array('Vollständiger Name: Nombre completo',$registro->nombre),1);
+$pdf->Row(array('Klasse (heute): <br>Curso (hoy)',$registro->curso),1);
+$pdf->Row(array('Geschlecht: <br>Genero                    ',$registro->genero),1);
+$pdf->Row(array('Geburtsdatum: <br>Fecha de nacimiento',$registro->fechaDeNacimiento),1);
+$pdf->SetWidths(array(30,58,30,70));
+$pdf->Ln();
+$pdf->Row(array('Reisepass <br>RUT                      ',$registro->numIdentidad,'Nationalität(en):  ',$registro->nacionalidad),1);
+$pdf->Row(array('Religion: <br>Religión ',$registro->religion,'Mail: ',$registro->mail),1);
+$pdf->Row(array('Handynummer: Celular',$registro->celular,'Ich rauche:',$sino[$registro->fuma]),1);
+$pdf->Row(array('T-Shirt-Größe: <br>Talla polera',$registro->tallapolera,'Adresse:',$registro->direccion),1);
+$pdf->Row(array('Festnetznummer:  Teléfono fijo',$registro->telefonofijo,'Ich wohne mit: ',$registro->vivocon),1);
+$pdf->SetWidths(array(30,58,30,70));
+
+$pdf->Row(array('Hobbys: ',$registro->hobbys,'Sonstige Bemerkungen* :  Otros antecedentes importantes',$registro->otrosAntecedentes));
+
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(10,10,utf8_decode("II. ANGABEN ÜBER ELTERN / datos de padres"),0,1);
+$pdf->SetFont('Arial','',8);
+
+$pdf->SetWidths(array(55,58,30,45));
+$pdf->Row(array('Nach- und Vorname des Vaters: <br>Apellidos y nombre padre',$registro->nombrePadre,'Alter:',$registro->edadPadre),1);
+$pdf->Row(array('Mail : <br>Mail',$registro->mailPadre,'Handy                            :',$registro->celularPadre),1);
+$pdf->Row(array('Nach- und Vorname der Mutter: <br>Apellidos y nombre madre',$registro->nombreMadre,'Alter:',$registro->edadMadre),1);
+$pdf->Row(array('Mail : <br>Mail',$registro->mailMadre,'Handy                            :',$registro->celularMadre),1);
+
+$pdf->SetFont('Arial','B',12);
+
+$pdf->Cell(10,10,utf8_decode("III. SONSTIGES / otros"),0,1);
+$pdf->SetFont('Arial','',8);
+$pdf->SetWidths(array(90,98));
+$pdf->Row(array('Ich habe Verwandte im Gastland: <br>Tengo parientes en el país anfitrión',$sino[$registro->tengoParientes]),1);
+$pdf->Row(array('Ich habe schon eine Gastfamilie (Name, Adresse, Mail): <br> Ya tengo familia anfitriona (Nombre, dirección, mail)',$sino[$registro->tengoAnfitriones].' ,'.$registro->nombreAnfitrion),1);
+// $pdf->Row(array('Mail : <br>Mail','16923509','Handy                            :','04143319808'),1);
+/*estas son las lineas que no se podian colocar con BR y las coloque con x y 'y' fijas*/
+$pdf->SetFont('Arial','',8);
+if ($pdf->PageNo() == 1) {
+	$pdf->setXY(98,97);
+	$pdf->Cell(10,10,'Nacionalidad(es)');
+		$pdf->setXY(98,108);
+		$pdf->Cell(10,10,'Mail');
+		$pdf->setXY(98,118);
+		$pdf->Cell(10,10,'Yo fumo');
+		$pdf->setXY(98,128);
+		$pdf->Cell(10,10,utf8_decode('Dirección'));
+		$pdf->setXY(98,138);
+		$pdf->Cell(10,10,utf8_decode('Yo vivo con'));
+		$pdf->setXY(10,148);
+		$pdf->Cell(10,10,utf8_decode('Hobbies'));
+		$pdf->setXY(123,187);
+		$pdf->Cell(10,10,utf8_decode('Celular'));
+		$pdf->setXY(123,207);
+		$pdf->Cell(10,10,utf8_decode('Celular'));
+		$pdf->setXY(123,177);
+		$pdf->Cell(10,10,utf8_decode('Edad'));
+		$pdf->setXY(123,197);
+		$pdf->Cell(10,10,utf8_decode('Edad'));
+}
+$pdf->SetFont('Arial','B',8);
+if ($pdf->PageNo() == 1) {
+	$pdf->setXY(10,262);
+	$pdf->Cell(90,4,"_____________________________________",0,0,"C");
+	$pdf->Cell(90,4,"_____________________________________",0,1,"C");
+
+
+	$pdf->Cell(90,4,utf8_decode("Unterschrift Schüler/in"),0,0,"C");
+	$pdf->Cell(90,4,utf8_decode("Unterschriften Eltern/ Erziehungsberechtigte"),0,1,"C");
+
+	$pdf->Cell(90,4,utf8_decode("Firma alumna/o"),0,0,"C");
+	$pdf->Cell(90,4,utf8_decode("Firmas padres/apoderados"),0,1,"C");
+}else{
+	$pdf->Ln();
+	$pdf->Ln();
+	$pdf->Ln();
+	$pdf->Ln();
+	$pdf->Ln();
+	$pdf->Cell(90,10,"_____________________________________",0,0,"C");
+	$pdf->Cell(90,10,"_____________________________________",0,1,"C");
+
+
+	$pdf->Cell(90,10,utf8_decode("Unterschrift Schüler/in"),0,0,"C");
+	$pdf->Cell(90,10,utf8_decode("Unterschriften Eltern/ Erziehungsberechtigte"),0,1,"C");
+
+	$pdf->Cell(90,10,utf8_decode("Firma alumna/o"),0,0,"C");
+	$pdf->Cell(90,10,utf8_decode("Firmas padres/apoderados"),0,1,"C");	
+}
+if (isset($_GET['tosend'])) {
+	$pdf->Output("F",getcwd()."/files/upload/".$_GET['tosend']);
+}else{
+
+	$pdf->Output();
+}
+?>

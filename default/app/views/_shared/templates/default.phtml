@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+ <head>
+  <meta charset=<?= APP_CHARSET ?> >
+  <title>Liga Chileno - Alemana</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <?php Tag::css("css/bootstrap-datepicker") ?>
+  <?php Tag::css("css/bootstrap.min") ?>
+  <?= Html::includeCss() ?>
+	<?php echo Tag::js("jquery-2.0.0.min") ?>
+	<?php echo Tag::js("moment") ?>
+	<?php echo Tag::js("bootstrap-datetimepicker") ?>
+</head>
+<body>
+	<?php if (Auth::is_valid()): ?>
+		<?php echo Html::link("index/logout","Cerrar Sesión") ?>
+	<?php endif ?>
+  <?php View::content() ?>
+</body>
+</html>
